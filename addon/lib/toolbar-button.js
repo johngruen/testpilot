@@ -11,6 +11,8 @@ const templates = require('./templates');
 Mustache.parse(templates.installed);
 Mustache.parse(templates.experimentList);
 
+const Metrics = require('./metrics');
+
 const PANEL_WIDTH = 300;
 const FOOTER_HEIGHT = 50;
 const EXPERIMENT_HEIGHT = 80;
@@ -90,6 +92,8 @@ function getParams() {
 }
 
 function handleToolbarButtonClick() {
+  Metrics.pingTelemetry('txp_toolbar_menu_1', 'clicked', Date.now());
+
   collapsed = !collapsed;
   if (panel) panel.hide();
   if (collapsed) return;
