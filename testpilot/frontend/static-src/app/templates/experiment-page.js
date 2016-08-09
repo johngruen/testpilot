@@ -11,7 +11,7 @@ export default `
             <h1 data-hook="title"></h1>
             <h4 data-hook="subtitle" class="subtitle"></h4>
           </header>
-            <div class="experiment-controls">
+            <div class="experiment-controls" data-hook="active-user">
 
             <a data-hook="highlight-privacy" class="highlight-privacy" data-l10n-id=highlightPrivacy>Your privacy</a>
             <a data-l10n-id="giveFeedback" data-hook="feedback" id="feedback-button" class="button default" target="_blank">Give Feedback</a>
@@ -32,7 +32,10 @@ export default `
                   <span data-l10n-id="userCountContainer">There are <span data-l10n-id="userCount" class="bold" data-hook="install-count"></span>
                   people trying <span data-hook="title"></span> right now!</span>
                 </section>
-                <section>
+                <section data-hook="inactive-user">
+                  <div data-hook="introduction-html"></div>
+                </section>
+                <section data-hook="active-user">
                   <table class="stats">
                     <tr data-hook="version-container">
                       <td data-l10n-id="version">Version</td>
@@ -74,9 +77,11 @@ export default `
             </div>
 
             <div class="details-description">
-              <section data-hook="introduction-container" class="introduction">
-                <div data-hook="introduction-html"></div>
-              </section>
+              <div data-hook="active-user">
+                <section data-hook="introduction-container active-user" class="introduction">
+                  <div data-hook="introduction-html"></div>
+                </section>
+              </div>
               <div class="details-list"></div>
             </div>
           </div>
