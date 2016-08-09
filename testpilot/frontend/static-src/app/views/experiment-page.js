@@ -29,6 +29,10 @@ export default PageView.extend({
     'click [data-hook=highlight-privacy]': 'highlightPrivacy'
   },
 
+  props: {
+    activeUser: {type: 'boolean', required: true, default: false}
+  },
+
   bindings: {
 
     'model': [{
@@ -187,6 +191,12 @@ export default PageView.extend({
       type: function feedbackSurveyUrl(el) {
         el.href = this.model.buildSurveyURL('givefeedback');
       }
+    },
+
+    'activeUser': {
+      type: 'toggle',
+      yes: '[data-hook=active-user]',
+      no: '[data-hook=inactive-user]'
     }
   },
 
@@ -204,6 +214,8 @@ export default PageView.extend({
 
     this.pageTitle = 'Test Pilot - ' + this.model.title;
     this.pageTitleL10nID = 'pageTitleExperiment';
+
+    app.me.on('change:hasAddon', this.render, this);
   },
 
   render() {
@@ -215,6 +227,10 @@ export default PageView.extend({
     });
     this.model.updateWhenLastSeen();
     return this;
+  },
+
+  beforeRender() {
+    this.activeUser = app.me.hasAddon;
   },
 
   afterRender() {
