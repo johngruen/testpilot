@@ -7,8 +7,9 @@ import DetailView from './detail-view';
 import ContributorView from './contributor-view';
 import template from '../templates/experiment-page';
 import DisableDialogView from './disable-dialog-view';
-import ExperimentPromoView from './experiment-promo-view';
+import ExperimentListView from './experiment-list-view';
 import ExperimentTourDialogView from './experiment-tour-dialog-view';
+import TestpilotPromoView from './testpilot-promo-view';
 
 function changeHeaderOn() {
   const header = document.getElementsByClassName('details-header-wrapper')[0];
@@ -228,10 +229,17 @@ export default PageView.extend({
     PageView.prototype.render.apply(this, arguments);
 
     if (!this.activeUser) {
-      console.log('isFirefox', this.isFirefox);
-      this.renderSubview(new ExperimentPromoView({
+      console.log('model', this.model);
+      this.renderSubview(new TestpilotPromoView({
         isFirefox: this.isFirefox
-      }), '[data-hook="experiment-promo"]');
+      }), '[data-hook="testpilot-promo"]');
+
+      this.renderSubview(new ExperimentListView({
+        hasAddon: this.activeUser,
+        isFirefox: this.isFirefox,
+        except: this.model.slug,
+        title: true
+      }), '[data-hook="experiment-list"]');
     }
 
     app.sendToGA('pageview', {

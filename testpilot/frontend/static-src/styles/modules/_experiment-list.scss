@@ -178,3 +178,13 @@
   height: $grid-unit * 4.8;
   opacity: .9;
 }
+
+[data-hook='experiment-page'] {
+  .transparent-container {
+    margin: 0;
+  }
+
+  .experiments {
+    margin-bottom: 0;
+  }
+}
