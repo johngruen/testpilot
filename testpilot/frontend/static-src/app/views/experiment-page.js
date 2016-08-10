@@ -12,10 +12,8 @@ import ExperimentTourDialogView from './experiment-tour-dialog-view';
 import TestpilotPromoView from './testpilot-promo-view';
 
 function changeHeaderOn() {
-  const header = document.getElementsByClassName('details-header-wrapper')[0];
-  const content = document.getElementsByClassName('details-content')[0];
-  return (content.getBoundingClientRect().top + window.pageYOffset -
-          header.offsetHeight);
+  const mainHeader = document.getElementById('main-header');
+  return mainHeader.clientHeight;
 }
 
 const CollectionExtended = Collection.extend({
@@ -211,9 +209,8 @@ export default PageView.extend({
     this.model = app.experiments.get(opts.slug, 'slug');
 
     this.didScroll = false;
-
     window.addEventListener('scroll', function scrollListener() {
-      if (!this.didScroll) {
+      if (!this.didScroll && this.activeUser) {
         this.didScroll = true;
         setTimeout(this.onScroll.bind(this), 50);
       }
@@ -365,10 +362,13 @@ export default PageView.extend({
   onScroll() {
     const sy = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (sy > changeHeaderOn()) {
-      this.query('.details-header-wrapper').classList.add('stick');
+    if (sy > changeHeaderOn() - 1) {
+      const header = this.query('.details-header-wrapper');
+      header.classList.add('stick');
+      this.query('.sticky-header-sibling').style.height = `${header.clientHeight}px`;
     } else {
       this.query('.details-header-wrapper').classList.remove('stick');
+      this.query('.sticky-header-sibling').style.height = '0px';
     }
 
     this.didScroll = false;

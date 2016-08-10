@@ -1,9 +1,7 @@
 export default `
   <section id="details" data-hook="experiment-page">
-    <div class="shifted-stars">
-      <header data-hook="header-view"></header>
-      <section data-hook="testpilot-promo"></section>
-    </div>
+    <header data-hook="header-view"></header>
+    <section data-hook="testpilot-promo"></section>
     <div class="default-background">
       <div class="details-header-wrapper" data-hook="is-enabled">
         <div class="status-bar enabled" data-l10n-id="isEnabledStatusMessage"><span data-hook="title"></span> is enabled.</div>
@@ -21,6 +19,7 @@ export default `
           </div>
         </div>
       </div>
+      <div class="sticky-header-sibling"></div>
 
       <div data-hook="details">
           <div class="details-content content-wrapper">
@@ -90,7 +89,7 @@ export default `
           </div>
         </div>
       </div>
-      <div class="transparent-container" data-hook="inactive-user">
+      <div data-hook="inactive-user">
         <h2 class="card-list-header" data-l10n-id="otherExperiments">Try out these experiments as well</h2>
         <div class="responsive-content-wrapper delayed-fade-in" data-hook="experiment-list"></div>
       </div>

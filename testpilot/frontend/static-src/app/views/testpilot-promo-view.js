@@ -4,12 +4,15 @@ import BaseView from './base-view';
 export default BaseView.extend({
   _template: `
     <div class="experiment-promo">
-      <div class="split-banner responsive-content-wrapper">
+      <div class="reverse-split-banner responsive-git content-wrapper">
+        <div class="copter-wrapper fly-up">
+          <div class="copter"></div>
+        </div>
         <div class="intro-text">
           <h2 class="banner">
             <span data-l10n-id="experimentPromoHeader" class="block">Ready for Takeoff?</span>
           </h2>
-          <p data-l10n-id="experimentPromoSubheader" class="">We're building next-generation features for Firefox. Install Test Pilot to try them out!</p>
+          <p data-l10n-id="experimentPromoSubheader">We're building next-generation features for Firefox. Install Test Pilot to try them!</p>
           {{^isFirefox}}
             <span data-l10n-id="landingDownloadFirefoxDesc" class="parens">(Test Pilot is available for Firefox on Windows, OS X and Linux)</span>
             <a href="https://www.mozilla.org/firefox" class="button primary download-firefox">
@@ -30,9 +33,6 @@ export default BaseView.extend({
           </button>
           <p data-l10n-id="landingLegalNotice" class="legal-information">By proceeding, you agree to the <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Notice</a> of Test Pilot</p>
           {{/isFirefox}}
-        </div>
-        <div class="copter-wrapper fly-up">
-          <div class="copter"></div>
         </div>
       </div>
     </div>

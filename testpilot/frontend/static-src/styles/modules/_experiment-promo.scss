@@ -1,9 +1,6 @@
 .experiment-promo {
 
   .intro-text {
-    h2 {
-      margin-top: 0;
-    }
 
     .button.extra-large {
       margin-top: $grid-unit * 1.5;
@@ -15,13 +12,24 @@
     }
 
     .download-firefox {
-      margin-left: 0;
+      @include respond-to(not-small) {
+        margin-left: 0;
+      }
+
+      margin-bottom: $grid-unit * 1.5;
     }
 
     .legal-information {
+      @include respond-to(small) {
+        text-align: center;
+      }
+
+      @include respond-to(not-small) {
+        text-align: left;
+      }
+
       margin-top: $grid-unit * 1.5;
       padding: 0;
-      text-align: left;
     }
   }
 }
