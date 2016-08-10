@@ -38,7 +38,7 @@ export default BaseView.extend({
     }
   },
 
-  initialize(opts) {
+  initialize() {
     app.me.on('change:hasAddon', this.render, this);
     BaseView.prototype.initialize.apply(this, arguments);
   },

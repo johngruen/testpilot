@@ -2,6 +2,7 @@ export default `
   <section id="details" data-hook="experiment-page">
     <div class="shifted-stars">
       <header data-hook="header-view"></header>
+      <section data-hook="experiment-promo"></section>
     </div>
     <div class="default-background">
       <div class="details-header-wrapper" data-hook="is-enabled">

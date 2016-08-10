@@ -7,6 +7,7 @@ import DetailView from './detail-view';
 import ContributorView from './contributor-view';
 import template from '../templates/experiment-page';
 import DisableDialogView from './disable-dialog-view';
+import ExperimentPromoView from './experiment-promo-view';
 import ExperimentTourDialogView from './experiment-tour-dialog-view';
 
 const changeHeaderOn = 127;
@@ -220,6 +221,14 @@ export default PageView.extend({
 
   render() {
     PageView.prototype.render.apply(this, arguments);
+
+    if (!this.activeUser) {
+      console.log('isFirefox', this.isFirefox);
+      this.renderSubview(new ExperimentPromoView({
+        isFirefox: this.isFirefox
+      }), '[data-hook="experiment-promo"]');
+    }
+
     app.sendToGA('pageview', {
       'dimension4': this.model.enabled,
       'dimension5': this.model.title,
@@ -231,6 +240,7 @@ export default PageView.extend({
 
   beforeRender() {
     this.activeUser = app.me.hasAddon;
+    this.isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   },
 
   afterRender() {
