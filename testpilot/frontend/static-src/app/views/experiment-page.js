@@ -10,7 +10,12 @@ import DisableDialogView from './disable-dialog-view';
 import ExperimentPromoView from './experiment-promo-view';
 import ExperimentTourDialogView from './experiment-tour-dialog-view';
 
-const changeHeaderOn = 127;
+function changeHeaderOn() {
+  const header = document.getElementsByClassName('details-header-wrapper')[0];
+  const content = document.getElementsByClassName('details-content')[0];
+  return (content.getBoundingClientRect().top + window.pageYOffset -
+          header.offsetHeight);
+}
 
 const CollectionExtended = Collection.extend({
   model: Model.extend({
@@ -340,7 +345,7 @@ export default PageView.extend({
     const measurementPanel = this.query('.measurements');
     const windowHeader = this.query('.details-header-wrapper');
 
-    window.scrollTo(0, measurementPanel.offsetTop + changeHeaderOn);
+    window.scrollTo(0, measurementPanel.offsetTop + changeHeaderOn());
     windowHeader.classList.add('stick');
     measurementPanel.classList.add('highlight');
     setTimeout(() => {
@@ -352,7 +357,7 @@ export default PageView.extend({
   onScroll() {
     const sy = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (sy > changeHeaderOn) {
+    if (sy > changeHeaderOn()) {
       this.query('.details-header-wrapper').classList.add('stick');
     } else {
       this.query('.details-header-wrapper').classList.remove('stick');
