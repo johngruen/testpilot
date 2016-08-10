@@ -70,6 +70,11 @@ experimentListJustUpdatedTab = Just Updated
 isEnabledStatusMessage = {$title} is enabled.
 participantCount = <span>{$installation_count}</span> participants
 
+experimentPromoHeader = Ready for Takeoff?
+experimentPromoSubheader = We're building next-generation features for Firefox. Install Test Pilot to try them out!
+
+otherExperiments = Try out these experiments as well
+
 giveFeedback = Give Feedback
 
 disableExperiment = Disable {$title}

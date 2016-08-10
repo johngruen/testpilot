@@ -1,0 +1,27 @@
+.experiment-promo {
+
+  .intro-text {
+    h2 {
+      margin-top: 0;
+    }
+
+    .button.extra-large {
+      margin-top: $grid-unit * 1.5;
+    }
+
+    .parens {
+      display: inline-block;
+      margin-top: $grid-unit;
+    }
+
+    .download-firefox {
+      margin-left: 0;
+    }
+
+    .legal-information {
+      margin-top: $grid-unit * 1.5;
+      padding: 0;
+      text-align: left;
+    }
+  }
+}
