@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import classnames from 'classnames';
 
@@ -119,12 +120,17 @@ export default class ExperimentPage extends React.Component {
     const modified = formatDate(experiment.modified);
     const completedDate = experiment.completed ? formatDate(experiment.completed) : null;
     const validVersion = this.isValidVersion(min_release);
+    const utcNow = moment.utc();
 
     let statusType = null;
     if (experiment.error) {
       statusType = 'error';
     } else if (enabled) {
       statusType = 'enabled';
+    }
+
+    if (moment(utcNow).isBefore(experiment.launch_date) && typeof experiment.launch_date !== 'undefined') {
+      this.props.history.push('/not-found');
     }
 
     return (
