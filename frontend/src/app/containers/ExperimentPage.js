@@ -15,6 +15,7 @@ import MainInstallButton from '../components/MainInstallButton';
 import ExperimentCardList from '../components/ExperimentCardList';
 import ExperimentPreFeedbackDialog from '../components/ExperimentPreFeedbackDialog';
 import View from '../components/View';
+import Warning from '../components/Warning';
 
 
 export default class ExperimentPage extends React.Component {
@@ -137,6 +138,18 @@ export class ExperimentDetail extends React.Component {
         </ul>
       </section>
     );
+  }
+
+  renderLocaleWarning() {
+    const { experiment, locale } = this.props;
+    if (experiment.locales && locale && !experiment.locales.includes(locale)) {
+      return (
+        <Warning titleL10nId="localeWarningTitle" title="Not speaking to you?">
+          <p data-l10n-id="localeWarningMessage">This isn't available in your locale.</p>
+        </Warning>
+      );
+    }
+    return null;
   }
 
   render() {
@@ -326,6 +339,7 @@ export class ExperimentDetail extends React.Component {
 
                 <div className="details-description">
                   {this.renderIncompatibleAddons()}
+                  {this.renderLocaleWarning()}
                   {this.renderEolBlock()}
                   {hasAddon && <div data-hook="active-user">
                     {!!introduction && <section className="introduction" data-hook="introduction-container">
