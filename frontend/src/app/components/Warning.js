@@ -22,11 +22,22 @@ export default class Warning extends React.Component {
     return null;
   }
 
+  renderChildren() {
+    if (this.props.children) {
+      return (
+      <div className="warning-children">
+        { this.props.children }
+      </div>
+      );
+    }
+    return null;
+  }
+
   render() {
     return (
       <section className="warning">
         {this.renderHeader()}
-        {this.props.children}
+        {this.renderChildren()}
       </section>
     );
   }

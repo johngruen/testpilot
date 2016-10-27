@@ -1,16 +1,27 @@
 .incompatible-addons,
 .warning {
-  background: $eol-light-orange;
-  border: 1px solid $eol-orange;
+  background: $transparent-black-05;
+  border: 1px dashed $eol-orange;
   border-radius: 3px;
   margin-bottom: $grid-unit;
   padding: $grid-unit;
 
   header {
+    @include flex-container(column, space-around, flex-start);
     background: url('../images/warning.svg') no-repeat left;
     background-size: ($grid-unit * 2) auto;
-    margin: $grid-unit 0 ($grid-unit / 2);
+    margin: $grid-unit 0 0;
     min-height: $grid-unit * 2;
+    padding-left: $grid-unit * 3;
+
+    h3,
+    p {
+      line-height: $line-unit + 4;
+    }
+  }
+
+  .warning-children {
+    margin-top: $grid-unit * .5;
     padding-left: $grid-unit * 3;
   }
 

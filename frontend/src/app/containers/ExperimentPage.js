@@ -131,11 +131,13 @@ export class ExperimentDetail extends React.Component {
             We recommend <a href={helpUrl}>disabling these add-ons</a> before activating this experiment:
           </p>
         </header>
+        <div className="warning-children">
         <ul>
           {installed.map(guid => (
             <li key={guid}>{incompatible[guid]}</li>
           ))}
         </ul>
+        </div>
       </section>
     );
   }
@@ -144,9 +146,10 @@ export class ExperimentDetail extends React.Component {
     const { experiment, locale } = this.props;
     if (experiment.locales && locale && !experiment.locales.includes(locale)) {
       return (
-        <Warning titleL10nId="localeWarningTitle" title="Not speaking to you?">
-          <p data-l10n-id="localeWarningMessage">This isn't available in your locale.</p>
-        </Warning>
+        <Warning titleL10nId="localeWarningTitle"
+                 title="This experiment is only available in English."
+                 subtitleL10nId="localeWarningSubtitle"
+                 subtitle="You can still install it if you like." />
       );
     }
     return null;
