@@ -266,13 +266,15 @@ describe('app/containers/ExperimentPage:ExperimentDetail', () => {
       expect(subject.find('MainInstallButton')).to.have.property('length', 1);
     });
 
-    it('should display a call-to-action to try other experiments', () => {
-      const experiment = setExperiment(mockExperiment);
-      expect(subject.find('.card-list-header')).to.have.property('length', 1);
-      const cardList = subject.find('ExperimentCardList');
-      expect(cardList).to.have.property('length', 1);
-      expect(cardList.prop('except')).to.equal(experiment.slug);
-    });
+    // TODO: this was removed to avoid in-the-wild run-ins with #2076
+    // once that gets resolved we should uncomment this code
+    // it('should display a call-to-action to try other experiments', () => {
+    //   const experiment = setExperiment(mockExperiment);
+    //   expect(subject.find('.card-list-header')).to.have.property('length', 1);
+    //   const cardList = subject.find('ExperimentCardList');
+    //   expect(cardList).to.have.property('length', 1);
+    //   expect(cardList.prop('except')).to.equal(experiment.slug);
+    // });
 
     describe('with hasAddon=true', () => {
       beforeEach(() => {

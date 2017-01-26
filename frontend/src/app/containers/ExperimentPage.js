@@ -13,7 +13,9 @@ import ExperimentDisableDialog from '../components/ExperimentDisableDialog';
 import ExperimentEolDialog from '../components/ExperimentEolDialog';
 import ExperimentTourDialog from '../components/ExperimentTourDialog';
 import MainInstallButton from '../components/MainInstallButton';
-import ExperimentCardList from '../components/ExperimentCardList';
+// TODO: this was removed to avoid in-the-wild run-ins with #2076
+// once that gets resolved we should uncomment this code
+// import ExperimentCardList from '../components/ExperimentCardList';
 import ExperimentPreFeedbackDialog from '../components/ExperimentPreFeedbackDialog';
 import View from '../components/View';
 import Warning from '../components/Warning';
@@ -226,7 +228,9 @@ export class ExperimentDetail extends React.Component {
 
     const surveyURL = buildSurveyURL('givefeedback', title, installed, clientUUID, survey_url);
     const graduated = isAfterCompletedDate(experiment);
-    const currentExperiments = experiments.filter(x => !isAfterCompletedDate(x));
+    // TODO: this was removed to avoid in-the-wild run-ins with #2076
+    // once that gets resolved we should uncomment this code
+    // const currentExperiments = experiments.filter(x => !isAfterCompletedDate(x));
 
     let statusType = null;
     if (experiment.error) {
@@ -431,15 +435,19 @@ export class ExperimentDetail extends React.Component {
               </div>
             </div>
           </div>
-          {!hasAddon && <div>
-            <h2 className="card-list-header" data-l10n-id="otherExperiments">Try out these experiments as well</h2>
-            <div className="responsive-content-wrapper delayed-fade-in">
-              <ExperimentCardList {...this.props}
-                                  experiments={currentExperiments}
-                                  except={experiment.slug}
-                                  eventCategory="ExperimentsDetailPage Interactions" />
-            </div>
-          </div>}
+          {
+          // TODO: this was removed to avoid in-the-wild run-ins with #2076
+          // once that gets resolved we should uncomment this code
+          // !hasAddon && <div>
+          //   <h2 className="card-list-header" data-l10n-id="otherExperiments">Try out these experiments as well</h2>
+          //   <div className="responsive-content-wrapper delayed-fade-in">
+          //     <ExperimentCardList {...this.props}
+          //                         experiments={currentExperiments}
+          //                         except={experiment.slug}
+          //                         eventCategory="ExperimentsDetailPage Interactions" />
+          //   </div>
+          // </div>
+          }
         </View>
       </section>
     );
