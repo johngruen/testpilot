@@ -3,9 +3,11 @@ import React from 'react';
 import ReactDOMFactories from 'react/lib/ReactDOMFactories';
 import Symbol from 'es-symbol';
 
-import NewsletterFooter from '../components/NewsletterFooter';
-import Header from '../components/Header';
+import Copter from '../components/Copter';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
+import LayoutWrapper from '../components/LayoutWrapper';
+import NewsletterFooter from '../components/NewsletterFooter';
 
 
 const DOMFactories = Object.keys(ReactDOMFactories);
@@ -85,10 +87,10 @@ export default class View extends React.Component {
     return null;
   }
 
-  makeClassNames() {
+  makeClassNames(isWarning) {
     return classNames('view', 'full-page-wrapper', {
       centered: this.props.centered,
-      'space-between': this.props.spaceBetween
+      'space-between': this.props.spaceBetween || isWarning
     });
   }
 
@@ -102,35 +104,37 @@ export default class View extends React.Component {
     if (!this.props.isFirefox) {
       return null;
     }
-    let title = <h1 className="warning">Something is wrong!</h1>;
+    let title = 'Something is wrong!';
     let copy = <p>Something has gone wrong with Test Pilot. Please <a href="https://github.com/mozilla/testpilot/issues/new">file a bug</a> and mention this error message.</p>;
     if (!this.props.isMinFirefox) {
-      title = <h1 className="warning">Upgrade firefox</h1>;
-      copy = <p>The version of Firefox which is installed is too old. Please upgrade.</p>;
+      title = 'Upgrade Firefox to continue!';
+      copy = <p>Test Pilot reqires the latest version of Firefox. <a href="https://www.mozilla.org/firefox/">Upgrade Firefox</a> to get started.</p>;
     } else if (window.location.protocol !== 'https:') {
-      title = <h1 className="warning">HTTPS required</h1>;
-      copy = <p>Test Pilot must be accessed over https. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">the documentation</a> for details.</p>;
+      title = 'HTTPS required!';
+      copy = <p>Test Pilot must be accessed over HTTPS. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">our documentation</a> for details.</p>;
     } else if (['example.com:8000', 'testpilot.dev.mozaws.net', 'testpilot.stage.mozaws.net'].includes(window.location.host)) {
-      title = <h1 className="warning">extensions.webapi.testing required</h1>;
-      copy = <p>When testing Test Pilot locally, on the dev server, or on the staging server, the extensions.webapi.testing preference is required. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">the documentation</a> for details.</p>;
+      title = 'Developing Test Pilot?';
+      copy = <p>When running Test Pilot locally or in development environments, special configuration is required. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">our documentation</a> for details.</p>;
     } else if (window.location.host !== 'testpilot.firefox.com') {
-      title = <h1 className="warning">Unapproved hostname</h1>;
-      copy = <p>The Test Pilot site may only be accessed from testpilot.firefox.com, testpilot.stage.mozaws.net, testpilot.dev.mozaws.net, or example.com:8000. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">the documentation</a> for details.</p>;
+      title = 'Unapproved hostname!';
+      copy = <p>The Test Pilot site may only be accessed from testpilot.firefox.com, testpilot.stage.mozaws.net, testpilot.dev.mozaws.net, or example.com:8000. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">our documentation</a> for details.</p>;
     }
-    return <div className="banner banner-expanded">
-      <div className="layout-wrapper layout-wrapper--row-between-reverse">
-        <div className="intro-text">
-          <h2 className="banner__title">{title}</h2>
-          <p className="banner__copy">{copy}</p>
+    return <LayoutWrapper flexModifier="column-center">
+        <div id="warning" className="modal">
+          <header className="modal-header-wrapper neutral-modal">
+            <h1 className="modal-header">{ title }</h1>
+          </header>
+          <div className="modal-content centered">{ copy }</div>
         </div>
-      </div>
-    </div>;
+        <Copter animation="fade-in-fly-up"/>
+      </LayoutWrapper>;
   }
 
   render() {
     const upgradeWarning = this.renderUpgradeWarning();
+    const setWarningLayout = !!upgradeWarning;
     return (
-      <section className={this.makeClassNames()}>
+      <section className={this.makeClassNames(setWarningLayout)}>
         {this.renderHeader()}
         {upgradeWarning !== null ? upgradeWarning : this.renderChildren()}
         {upgradeWarning !== null ? null : this.renderNewsletterFooter()}
