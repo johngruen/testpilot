@@ -92,12 +92,48 @@ export default class View extends React.Component {
     });
   }
 
+  renderUpgradeWarning() {
+    if (this.props.hasAddon === null) {
+      return null;
+    }
+    if (typeof navigator.mozAddonManager !== 'undefined') {
+      return null;
+    }
+    if (!this.props.isFirefox) {
+      return null;
+    }
+    let title = <h1 className="warning">Something is wrong!</h1>;
+    let copy = <p>Something has gone wrong with Test Pilot. Please <a href="https://github.com/mozilla/testpilot/issues/new">file a bug</a> and mention this error message.</p>;
+    if (!this.props.isMinFirefox) {
+      title = <h1 className="warning">Upgrade firefox</h1>;
+      copy = <p>The version of Firefox which is installed is too old. Please upgrade.</p>;
+    } else if (window.location.protocol !== 'https:') {
+      title = <h1 className="warning">HTTPS required</h1>;
+      copy = <p>Test Pilot must be accessed over https. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">the documentation</a> for details.</p>;
+    } else if (['example.com:8000', 'testpilot.dev.mozaws.net', 'testpilot.stage.mozaws.net'].includes(window.location.host)) {
+      title = <h1 className="warning">extensions.webapi.testing required</h1>;
+      copy = <p>When testing Test Pilot locally, on the dev server, or on the staging server, the extensions.webapi.testing preference is required. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">the documentation</a> for details.</p>;
+    } else if (window.location.host !== 'testpilot.firefox.com') {
+      title = <h1 className="warning">Unapproved hostname</h1>;
+      copy = <p>The Test Pilot site may only be accessed from testpilot.firefox.com, testpilot.stage.mozaws.net, testpilot.dev.mozaws.net, or example.com:8000. Please see <a href="https://github.com/mozilla/testpilot/blob/master/docs/development/quickstart.md">the documentation</a> for details.</p>;
+    }
+    return <div className="banner banner-expanded">
+      <div className="layout-wrapper layout-wrapper--row-between-reverse">
+        <div className="intro-text">
+          <h2 className="banner__title">{title}</h2>
+          <p className="banner__copy">{copy}</p>
+        </div>
+      </div>
+    </div>;
+  }
+
   render() {
+    const upgradeWarning = this.renderUpgradeWarning();
     return (
       <section className={this.makeClassNames()}>
         {this.renderHeader()}
-        {this.renderChildren()}
-        {this.renderNewsletterFooter()}
+        {upgradeWarning !== null ? upgradeWarning : this.renderChildren()}
+        {upgradeWarning !== null ? null : this.renderNewsletterFooter()}
         {this.renderFooter()}
       </section>
     );
