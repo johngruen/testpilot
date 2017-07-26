@@ -2,6 +2,10 @@
 
 # FAQ
 
+## What is this thing?
+
+blah blah blah
+
 ## Why does Test Pilot require JavaScript?
 
 - We use JavaScript to render the user interface of Test Pilot.
